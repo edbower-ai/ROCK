@@ -45,7 +45,14 @@
             padding: 15px;
             border-radius: 6px;
         }
-
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            grid-template-rows: auto auto; 
+            gap: 20px; 
+        }
+    
         .category-column h2 {
             margin-top: 0;
             text-align: center;
@@ -143,24 +150,32 @@
     <!-- MAIN LAYOUT -->
     <div class="container">
 
-        <!-- Category Columns -->
-        <div class="category-column">
-            <h2>Entree</h2>
-            <div class="item-placeholder"></div>
-            <div class="item-placeholder"></div>
-        </div>
+        <div class="category-grid">
+            <div class="category-column">
+                <h2>Entree</h2>
+                <div class="item-placeholder"></div>
+                <div class="item-placeholder"></div>
+            </div>
 
-        <div class="category-column">
-            <h2>Sides</h2>
-            <div class="item-placeholder"></div>
-            <div class="item-placeholder"></div>
-            <div class="item-placeholder"></div>
-        </div>
+            <div class="category-column">
+                <h2>Sides</h2>
+                <div class="item-placeholder"></div>
+                <div class="item-placeholder"></div>
+                <div class="item-placeholder"></div>
+            </div>
 
-        <div class="category-column">
-            <h2>Drinks</h2>
-            <div class="item-placeholder"></div>
-            <div class="item-placeholder"></div>
+            <div class="category-column">
+                <h2>Drinks</h2>
+                <div class="item-placeholder"></div>
+                <div class="item-placeholder"></div>
+            </div>
+
+            <div class="category-column">
+                <h2>Desserts</h2>
+                <div class="item-placeholder"></div>
+                <div class="item-placeholder"></div>
+                <div class="item-placeholder"></div>
+            </div>
         </div>
 
         <!-- Right Panel -->
