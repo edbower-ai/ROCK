@@ -85,6 +85,16 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+        
+        .form-box select {
+            width: 100%;
+            padding: 10px;
+            margin: 0 0 12px 0;
+            background: var(--cream);
+            border: 1px solid #d3d3d3;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }    
 
         .form-box button {
             width: 100%;
@@ -159,6 +169,14 @@
             <!-- Pledge Form -->
             <div class="form-box">
                 <h3>Pledge an Item</h3>
+                <select class="category-select">
+                     <option value="">Select Category</option>
+                     <option>Entree</option>
+                     <option>Sides</option>
+                     <option>Drinks</option>
+                     <option>Desserts</option>
+                </select>
+                
                 <input type="text" placeholder="Item name" />
                 <input type="text" placeholder="Member name" />
                 <button>Pledge Item</button>
