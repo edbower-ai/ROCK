@@ -1,1 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Ministry Meal Tracker</title>
+
+    <style>
+        /* --- COLOR SCHEME --- */
+        :root {
+            --cream: #f5f1e8;
+            --light-blue: #81b6ce;
+            --dark-blue: #1d4157;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--cream);
+            color: var(--dark-blue);
+        }
+
+        header {
+            background: var(--light-blue);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header img {
+            width: 160px;
+            height: auto;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .category-column {
+            flex: 1;
+            background: var(--light-blue);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .category-column h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .item-placeholder {
+            background: var(--white);
+            height: 60px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            opacity: 0.6;
+        }
+
+        .right-panel {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-box {
+            background: var(--light-blue);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .form-box h3 {
+            margin-top: 0;
+        }
+
+        .form-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .form-box button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: var(--dark-blue);
+            color: var(--white);
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .budget-box {
+            background: var(--light-blue);
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .budget-box .amount {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .right-panel {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER WITH LOGO -->
+    <header>
+        <img src="logo.png" alt="Rock Ministry Logo" />
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="container">
+
+        <!-- Category Columns -->
+        <div class="category-column">
+            <h2>Entree</h2>
+            <div class="item-placeholder"></div>
+            <div class="item-placeholder"></div>
+        </div>
+
+        <div class="category-column">
+            <h2>Sides</h2>
+            <div class="item-placeholder"></div>
+            <div class="item-placeholder"></div>
+            <div class="item-placeholder"></div>
+        </div>
+
+        <div class="category-column">
+            <h2>Drinks</h2>
+            <div class="item-placeholder"></div>
+            <div class="item-placeholder"></div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+
+            <!-- Pledge Form -->
+            <div class="form-box">
+                <h3>Pledge an Item</h3>
+                <input type="text" placeholder="Item name" />
+                <input type="text" placeholder="Member name" />
+                <button>Pledge Item</button>
+            </div>
+
+            <!-- Budget Box -->
+            <div class="budget-box">
+                <div>Remaining Budget:</div>
+                <div class="amount">$0.00</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
 
