@@ -1,206 +1,215 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rock Ministry Tracker</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Rock Ministry Tracker - Centered</title>
 
-    <style>
-        :root {
-            --cream: #F2E8D5;
-            --light-blue: #7FB1C8;
-            --dark-blue: #1A3648;
-        }
+<style>
+  /* Simple reset to reduce interference */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { height: 100%; }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: var(--cream);
-            color: var(--dark-blue);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+  /* BRAND COLORS (use your chosen cream/blue) */
+  :root{
+    --cream: #E7DFC8;       /* slightly darker cream you liked */
+    --light-blue: #7FB1C8;
+    --dark-blue: #1A3648;
+    --white: #ffffff;
+  }
 
-        /* HEADER */
-        header {
-            padding: 25px 0 10px 0;
-            text-align: center;
-        }
+  /* Force body to center page - use !important to beat theme rules */
+  body{
+    background: var(--cream) !important;
+    color: var(--dark-blue) !important;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    padding: 30px !important;
+    min-height: 100vh;
+  }
 
-        header img {
-            width: 170px;
-        }
+  /* Outer container centered and limited width */
+  .site-wrapper{
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+  }
 
-        /* MAIN LAYOUT */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+  header{
+    text-align: center;
+    padding-bottom: 18px;
+  }
+  header img{ width: 170px; height: auto; display: inline-block; }
 
-        /* LEFT GRID OF CATEGORIES */
-        .category-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            flex: 1;
-        }
+  /* Main layout: left grid + right panel */
+  .main {
+    display: flex !important;
+    gap: 28px;
+    align-items: flex-start;
+    width: 100%;
+  }
 
-        .category-column {
-            background: var(--light-blue);
-            padding: 15px;
-            border-radius: 8px;
-        }
+  /* LEFT area: grid of categories */
+  .left {
+    flex: 1 1 0%;
+    min-width: 280px;
+  }
 
-        .category-column h2 {
-            margin-top: 0;
-            text-align: center;
-        }
+  .category-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+  }
 
-        .item-placeholder {
-            background: var(--cream);
-            height: 55px;
-            margin-bottom: 12px;
-            border-radius: 4px;
-            opacity: 0.7;
-        }
+  .category-column{
+    background: var(--light-blue) !important;
+    border-radius: 8px;
+    padding: 14px;
+    color: var(--dark-blue);
+    min-height: 130px;
+  }
+  .category-column h2{ text-align: center; margin-bottom: 10px; }
 
-        /* RIGHT PANEL */
-        .right-panel {
-            width: 320px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+  .item-placeholder{
+    background: var(--cream);
+    height: 52px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+  }
 
-        .form-box {
-            background: var(--light-blue);
-            padding: 18px;
-            border-radius: 8px;
-        }
+  /* RIGHT area: narrow column */
+  .right {
+    width: 320px;
+    min-width: 240px;
+    flex: 0 0 320px;
+  }
 
-        .form-box h3 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            text-align: center;
-        }
+  .form-box{
+    background: var(--light-blue);
+    padding: 16px;
+    border-radius: 8px;
+  }
+  .form-box h3{ text-align:center; margin-bottom:12px; }
 
-        .form-box input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 12px;
-            border: 1px solid #ccc;
-            background: var(--cream);
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
+  /* Inputs styled to stay inside the blue box */
+  .form-box input,
+  .form-box select,
+  .form-box button{
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    border-radius: 6px;
+  }
 
-        .form-box button {
-            width: 100%;
-            padding: 12px;
-            background: var(--dark-blue);
-            color: var(--cream);
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+  .form-box input,
+  .form-box select{
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #cfcfcf;
+    background: var(--white);
+  }
 
-        .budget-box {
-            background: var(--light-blue);
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-        }
+  .form-box button{
+    padding: 12px;
+    border: none;
+    background: var(--dark-blue);
+    color: var(--white);
+    cursor: pointer;
+    font-size: 16px;
+  }
 
-        .budget-box .amount {
-            font-size: 32px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
+  .budget-box{
+    background: var(--light-blue);
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 8px;
+    text-align: center;
+  }
+  .budget-box .amount{ font-size: 28px; font-weight:700; margin-top:8px; }
 
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .container {
-                flex-direction: column;
-                align-items: center;
-            }
+  /* Responsive: stack on small screens */
+  @media (max-width: 900px){
+    .main{ flex-direction: column; align-items: stretch; }
+    .right{ width: 100%; min-width: auto; flex: none; }
+    .category-grid{ grid-template-columns: 1fr; }
+  }
 
-            .category-grid {
-                grid-template-columns: 1fr;
-                width: 100%;
-            }
-
-            .right-panel {
-                width: 100%;
-            }
-        }
-    </style>
+  /* Safety: override common theme classes that push content left */
+  .container, .content, .site-content {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+</style>
 </head>
-
 <body>
-
-    <!-- HEADER WITH LOGO -->
+  <div class="site-wrapper">
     <header>
-        <img src="newlogo.png" alt="Rock Ministry Logo">
+      <!-- Make sure the filename matches your repo (newlogo.png or logo.png) -->
+      <img src="newlogo.png" alt="Rock Ministry Logo" />
     </header>
 
-    <!-- MAIN LAYOUT -->
-    <div class="container">
-
-        <!-- 2x2 GRID -->
+    <div class="main">
+      <!-- LEFT: category grid -->
+      <div class="left">
         <div class="category-grid">
+          <div class="category-column">
+            <h2>Entree</h2>
+            <div class="item-placeholder"></div>
+            <div class="item-placeholder"></div>
+          </div>
 
-            <div class="category-column">
-                <h2>Entree</h2>
-                <div class="item-placeholder"></div>
-                <div class="item-placeholder"></div>
-            </div>
+          <div class="category-column">
+            <h2>Sides</h2>
+            <div class="item-placeholder"></div>
+            <div class="item-placeholder"></div>
+            <div class="item-placeholder"></div>
+          </div>
 
-            <div class="category-column">
-                <h2>Sides</h2>
-                <div class="item-placeholder"></div>
-                <div class="item-placeholder"></div>
-                <div class="item-placeholder"></div>
-            </div>
+          <div class="category-column">
+            <h2>Drinks</h2>
+            <div class="item-placeholder"></div>
+            <div class="item-placeholder"></div>
+          </div>
 
-            <div class="category-column">
-                <h2>Drinks</h2>
-                <div class="item-placeholder"></div>
-                <div class="item-placeholder"></div>
-            </div>
+          <div class="category-column">
+            <h2>Desserts</h2>
+            <div class="item-placeholder"></div>
+            <div class="item-placeholder"></div>
+          </div>
+        </div>
+      </div>
 
-            <div class="category-column">
-                <h2>Desserts</h2>
-                <div class="item-placeholder"></div>
-                <div class="item-placeholder"></div>
-            </div>
+      <!-- RIGHT: pledge form + budget -->
+      <aside class="right">
+        <div class="form-box">
+          <h3>Pledge an Item</h3>
+          <select aria-label="Category">
+            <option value="">Select Category</option>
+            <option>Entree</option>
+            <option>Sides</option>
+            <option>Drinks</option>
+            <option>Desserts</option>
+          </select>
 
+          <input type="text" placeholder="Item name" />
+          <input type="text" placeholder="Member name" />
+          <button>Pledge Item</button>
         </div>
 
-        <!-- RIGHT PANEL -->
-        <div class="right-panel">
-
-            <div class="form-box">
-                <h3>Pledge an Item</h3>
-                <input type="text" placeholder="Item name">
-                <input type="text" placeholder="Member name">
-                <button>Pledge Item</button>
-            </div>
-
-            <div class="budget-box">
-                <div>Remaining Budget:</div>
-                <div class="amount">$600.00</div>
-            </div>
-
+        <div class="budget-box">
+          <div>Remaining Budget</div>
+          <div class="amount">$600.00</div>
         </div>
-
+      </aside>
     </div>
+  </div>
 
+<!-- End body -->
 </body>
 </html>
