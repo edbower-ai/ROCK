@@ -1,171 +1,159 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Rock Ministry Tracker</title>
 
 <style>
-/* =========================================
-   COLOR SCHEME
-========================================= */
+/* RESET */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+/* COLOR SCHEME */
 :root {
-    --cream: #EFE8D9;
+    --cream: #E7DFC8;
     --light-blue: #7FB1C8;
     --dark-blue: #1A3648;
 }
 
-/* =========================================
-   GLOBAL
-========================================= */
+/* PAGE LAYOUT */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
     background: var(--cream);
     color: var(--dark-blue);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    min-height: 100vh;
 }
 
-/* =========================================
-   HEADER
-========================================= */
-header {
-    background: var(--cream);
-    padding: 20px 0;
-    text-align: center;
-}
-
-header img {
-    width: 160px;
-    height: auto;
-}
-
-/* =========================================
-   MEAL CREATION BOX (Top Section)
-========================================= */
-.meal-form {
-    background: var(--cream);
-    width: 60%;
-    margin: 0 auto 25px auto;
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid var(--dark-blue);
-    box-shadow: 0 0 8px rgba(0,0,0,0.08);
-}
-
-.meal-form h3 {
-    text-align: center;
-    margin-top: 0;
-}
-
-.meal-form label {
-    font-weight: bold;
-}
-
-.meal-form input {
+.site-wrapper {
     width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #cfcfcf;
-    background: var(--cream);
-    margin-top: 6px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+header img {
+    width: 170px;
+}
+
+/* MEAL CREATION BOX */
+.form-box {
+    background: var(--light-blue);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.form-box h3 {
+    text-align: center;
     margin-bottom: 12px;
 }
 
-.meal-form button {
-    width: 100%;
-    padding: 12px;
-    border-radius: 6px;
-    border: none;
-    background: var(--dark-blue);
-    color: var(--cream);
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
+.form-box label {
+    font-weight: bold;
 }
 
-/* =========================================
-   MAIN CATEGORY GRID (2x2)
-========================================= */
-.meal-container {
-    max-width: 1100px;
-    margin: 0 auto;
+.form-box input,
+.form-box button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #cfcfcf;
+    background: var(--cream);
+}
+
+.form-box button {
+    background: var(--dark-blue);
+    color: var(--cream);
+    border: none;
+    cursor: pointer;
+}
+
+/* CATEGORY GRID */
+.category-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
+    gap: 20px;
 }
 
 .category-column {
     background: var(--light-blue);
-    padding: 15px;
+    padding: 14px;
     border-radius: 8px;
 }
 
 .category-column h2 {
     text-align: center;
-    margin-top: 0;
+    margin-bottom: 10px;
 }
 
-/* =========================================
-   BLANK PANELS / PLEDGE SPOTS
-========================================= */
+/* EMPTY / FILLED BOXES */
 .item-placeholder {
     background: var(--cream);
-    border-radius: 6px;
-    padding: 18px;
+    height: 55px;
     margin-bottom: 12px;
-    text-align: center;
+    border-radius: 4px;
+    opacity: 0.9;
     cursor: pointer;
-    border: 1px solid #ddd;
-    transition: transform 0.1s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+    text-align: center;
+    font-size: 14px;
 }
 
-.item-placeholder:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 6px rgba(0,0,0,0.15);
-}
-
-/* When filled */
-.item-filled {
+.item-placeholder.filled {
+    opacity: 1;
     background: var(--cream);
-    font-weight: bold;
-    border: 1px solid #b5a996;
 }
 
-/* =========================================
-   POPUP MODAL
-========================================= */
-.modal-overlay {
+/* MODAL BACKDROP */
+.modal {
     display: none;
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
     justify-content: center;
     align-items: center;
+    z-index: 999;
 }
 
-.modal {
+/* MODAL BOX */
+.modal-content {
     background: var(--cream);
-    padding: 25px;
-    border-radius: 10px;
+    padding: 20px;
+    border-radius: 8px;
     width: 300px;
-    border: 2px solid var(--dark-blue);
 }
 
-.modal h3 {
-    margin-top: 0;
+.modal-content h3 {
     text-align: center;
-}
-
-.modal input {
-    width: 100%;
-    padding: 10px;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 6px;
     margin-bottom: 12px;
 }
 
-.modal button {
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    background: var(--cream);
+    border-radius: 6px;
+    border: 1px solid #bbb;
+}
+
+.modal-content button {
     width: 100%;
     padding: 10px;
     background: var(--dark-blue);
@@ -175,114 +163,127 @@ header img {
     cursor: pointer;
 }
 
-/* =========================================
-   RESPONSIVE
-========================================= */
+/* RESPONSIVE */
 @media (max-width: 900px) {
-    .meal-container {
+    .category-grid {
         grid-template-columns: 1fr;
-    }
-    .meal-form {
-        width: 90%;
     }
 }
 </style>
 </head>
-
 <body>
 
-<!-- HEADER -->
-<header>
-    <img src="newlogo.png" alt="Rock Ministry Logo">
-</header>
+<div class="site-wrapper">
 
-<!-- MEAL CREATION FORM -->
-<div class="meal-form">
-    <h3>Create a Meal</h3>
+    <header>
+        <img src="newlogo.png" alt="Rock Ministry Logo">
+    </header>
 
-    <label>Number of Entrees</label>
-    <input type="number" id="entrees" min="0" value="0">
+    <!-- MEAL CREATION FORM -->
+    <div class="form-box">
+        <h3>Create a Meal</h3>
 
-    <label>Number of Sides</label>
-    <input type="number" id="sides" min="0" value="0">
+        <label>Number of Entrees</label>
+        <input id="entreeCount" type="number" min="0" value="0">
 
-    <label>Number of Drinks</label>
-    <input type="number" id="drinks" min="0" value="0">
+        <label>Number of Sides</label>
+        <input id="sideCount" type="number" min="0" value="0">
 
-    <label>Number of Desserts</label>
-    <input type="number" id="desserts" min="0" value="0">
+        <label>Number of Drinks</label>
+        <input id="drinkCount" type="number" min="0" value="0">
 
-    <button onclick="generateMeal()">Create Meal</button>
+        <label>Number of Desserts</label>
+        <input id="dessertCount" type="number" min="0" value="0">
+
+        <button onclick="createMeal()">Create Meal</button>
+    </div>
+
+    <!-- CATEGORY GRID -->
+    <div id="categoryGrid" class="category-grid"></div>
+
 </div>
 
-<!-- CATEGORY GRID -->
-<div class="meal-container">
-    <div class="category-column" id="entreeCol"><h2>Entrees</h2></div>
-    <div class="category-column" id="sideCol"><h2>Sides</h2></div>
-    <div class="category-column" id="drinkCol"><h2>Drinks</h2></div>
-    <div class="category-column" id="dessertCol"><h2>Desserts</h2></div>
-</div>
 
-<!-- POPUP MODAL -->
-<div class="modal-overlay" id="modal">
-    <div class="modal">
+<!-- MODAL -->
+<div id="pledgeModal" class="modal">
+    <div class="modal-content">
         <h3>Pledge Item</h3>
-        <input id="itemName" placeholder="Item name">
-        <input id="memberName" placeholder="Member name">
-        <button onclick="submitPledge()">Submit</button>
+        <input type="text" id="modalItem" placeholder="Item name">
+        <input type="text" id="modalMember" placeholder="Member name">
+        <button id="modalSubmit">Pledge</button>
     </div>
 </div>
 
+
 <script>
-let activeBox = null;
+let selectedBox = null;
 
-// Generate blank panels based on form inputs
-function generateMeal() {
-    const entrees = +document.getElementById("entrees").value;
-    const sides = +document.getElementById("sides").value;
-    const drinks = +document.getElementById("drinks").value;
-    const desserts = +document.getElementById("desserts").value;
-
-    document.getElementById("entreeCol").innerHTML = "<h2>Entrees</h2>";
-    document.getElementById("sideCol").innerHTML = "<h2>Sides</h2>";
-    document.getElementById("drinkCol").innerHTML = "<h2>Drinks</h2>";
-    document.getElementById("dessertCol").innerHTML = "<h2>Desserts</h2>";
-
-    addPanels("entreeCol", entrees);
-    addPanels("sideCol", sides);
-    addPanels("drinkCol", drinks);
-    addPanels("dessertCol", desserts);
-}
-
-function addPanels(columnId, count) {
-    const col = document.getElementById(columnId);
-    for (let i = 0; i < count; i++) {
-        const box = document.createElement("div");
-        box.className = "item-placeholder";
-        box.textContent = "Click to pledge";
-        box.onclick = () => openModal(box);
-        col.appendChild(box);
+/* OPEN MODAL WHEN CLICKING EMPTY BOX */
+document.addEventListener("click", function(e) {
+    if (e.target.classList.contains("item-placeholder")) {
+        selectedBox = e.target;
+        document.getElementById("modalItem").value = "";
+        document.getElementById("modalMember").value = "";
+        document.getElementById("pledgeModal").style.display = "flex";
+        document.getElementById("modalItem").focus();
     }
-}
+});
 
-// Modal controls
-function openModal(box) {
-    activeBox = box;
-    document.getElementById("modal").style.display = "flex";
-}
-
+/* SUBMIT PLEDGE */
 function submitPledge() {
-    const item = document.getElementById("itemName").value.trim();
-    const member = document.getElementById("memberName").value.trim();
+    const item = document.getElementById("modalItem").value.trim();
+    const member = document.getElementById("modalMember").value.trim();
+    if (!item || !member) return;
 
-    if (item === "" || member === "") return;
+    selectedBox.innerHTML = `${item}<br><span style="font-size:12px; opacity:0.8;">— ${member}</span>`;
+    selectedBox.classList.add("filled");
 
-    activeBox.classList.add("item-filled");
-    activeBox.textContent = `${item} — ${member}`;
+    document.getElementById("pledgeModal").style.display = "none";
+}
 
-    document.getElementById("modal").style.display = "none";
-    document.getElementById("itemName").value = "";
-    document.getElementById("memberName").value = "";
+/* BUTTON & ENTER KEY */
+document.getElementById("modalSubmit").addEventListener("click", submitPledge);
+document.addEventListener("keydown", e => {
+    if (e.key === "Enter" && document.getElementById("pledgeModal").style.display === "flex") {
+        submitPledge();
+    }
+});
+
+/* CLOSE MODAL BY CLICKING OUTSIDE */
+document.getElementById("pledgeModal").addEventListener("click", function(e) {
+    if (e.target === this) this.style.display = "none";
+});
+
+/* BUILD MEAL GRID */
+function createMeal() {
+    const counts = {
+        Entree: +document.getElementById("entreeCount").value || 0,
+        Sides: +document.getElementById("sideCount").value || 0,
+        Drinks: +document.getElementById("drinkCount").value || 0,
+        Desserts: +document.getElementById("dessertCount").value || 0
+    };
+
+    const grid = document.getElementById("categoryGrid");
+    grid.innerHTML = "";
+
+    Object.entries(counts).forEach(([name, count]) => {
+        if (count > 0) {
+            const col = document.createElement("div");
+            col.className = "category-column";
+
+            const title = document.createElement("h2");
+            title.textContent = name;
+            col.appendChild(title);
+
+            for (let i = 0; i < count; i++) {
+                const box = document.createElement("div");
+                box.className = "item-placeholder";
+                col.appendChild(box);
+            }
+
+            grid.appendChild(col);
+        }
+    });
 }
 </script>
 
