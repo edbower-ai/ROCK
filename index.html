@@ -73,13 +73,20 @@
   }
   .category-column h2{ text-align: center; margin-bottom: 10px; }
 
-  .item-placeholder{
+  .item-placeholder {
     background: var(--cream);
-    height: 52px;
-    border-radius: 6px;
-    margin-bottom: 10px;
+    height: 55px;
+    margin-bottom: 12px;
+    border-radius: 4px;
     opacity: 0.9;
-  }
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+    font-size: 14px;
+}
+
 
   /* RIGHT area: narrow column */
   .right {
@@ -145,6 +152,53 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
+  /* MODAL OVERLAY */
+.modal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* MODAL BOX */
+.modal-content {
+    background: var(--cream);
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 10px;
+    background: var(--dark-blue);
+    color: var(--cream);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -204,7 +258,62 @@
     </div>
   </div>
 
+  <!-- MODAL -->
+<div id="pledgeModal" class="modal">
+    <div class="modal-content">
+        <h3>Pledge Item</h3>
+        <input type="text" id="modalItem" placeholder="Item name">
+        <input type="text" id="modalMember" placeholder="Member name">
+        <button id="modalSubmit">Pledge</button>
+    </div>
+</div>
+
+
   <script>
+    let selectedBox = null;
+
+// OPEN MODAL WHEN CLICKING A BOX
+document.addEventListener("click", function(e) {
+    if (e.target.classList.contains("item-placeholder")) {
+        selectedBox = e.target;
+        document.getElementById("modalItem").value = "";
+        document.getElementById("modalMember").value = "";
+        document.getElementById("pledgeModal").style.display = "flex";
+        document.getElementById("modalItem").focus();
+    }
+});
+
+// SUBMIT PLEDGE
+function submitPledge() {
+    const item = document.getElementById("modalItem").value.trim();
+    const member = document.getElementById("modalMember").value.trim();
+
+    if (!item || !member) return;
+
+    selectedBox.innerHTML = `${item}<br><span style="font-size:12px; opacity:0.8;">— ${member}</span>`;
+    selectedBox.style.opacity = "1";
+    selectedBox.style.background = "white";
+
+    document.getElementById("pledgeModal").style.display = "none";
+}
+
+// BUTTON CLICK
+document.getElementById("modalSubmit").addEventListener("click", submitPledge);
+
+// ENTER KEY SUBMISSION
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Enter" && document.getElementById("pledgeModal").style.display === "flex") {
+        submitPledge();
+    }
+});
+
+// CLOSE MODAL BY CLICKING OUTSIDE
+document.getElementById("pledgeModal").addEventListener("click", function(e) {
+    if (e.target === this) {
+        this.style.display = "none";
+    }
+});
+    
 function createMeal() {
     const entreeCount = parseInt(document.getElementById("entreeCount").value) || 0;
     const sideCount = parseInt(document.getElementById("sideCount").value) || 0;
