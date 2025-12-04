@@ -6,74 +6,98 @@
 <title>Rock Ministry Tracker</title>
 
 <style>
-  /* Simple reset to reduce interference */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html,body { height: 100%; }
+/* RESET */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
 
-  /* BRAND COLORS (use your chosen cream/blue) */
-  :root{
-    --cream: #E7DFC8;       /* slightly darker cream you liked */
+/* COLOR SCHEME */
+:root {
+    --cream: #E7DFC8;
     --light-blue: #7FB1C8;
     --dark-blue: #1A3648;
-    --white: #ffffff;
-  }
+}
 
-  /* Force body to center page - use !important to beat theme rules */
-  body{
-    background: var(--cream) !important;
-    color: var(--dark-blue) !important;
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: flex-start !important;
-    padding: 30px !important;
+/* PAGE LAYOUT */
+body {
+    background: var(--cream);
+    color: var(--dark-blue);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
     min-height: 100vh;
-  }
+}
 
-  /* Outer container centered and limited width */
-  .site-wrapper{
-    width: 100% !important;
-    max-width: 1200px !important;
-    margin: 0 auto !important;
-  }
-
-  header{
-    text-align: center;
-    padding-bottom: 18px;
-  }
-  header img{ width: 170px; height: auto; display: inline-block; }
-
-  /* Main layout: left grid + right panel */
-  .main {
-    display: flex !important;
-    gap: 28px;
-    align-items: flex-start;
+.site-wrapper {
     width: 100%;
-  }
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-  /* LEFT area: grid of categories */
-  .left {
-    flex: 1 1 0%;
-    min-width: 280px;
-  }
+/* HEADER */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+header img {
+    width: 170px;
+}
 
-  .category-grid{
+/* MEAL CREATION BOX */
+.form-box {
+    background: var(--light-blue);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.form-box h3 {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.form-box label {
+    font-weight: bold;
+}
+
+.form-box input,
+.form-box button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #cfcfcf;
+    background: var(--cream);
+}
+
+.form-box button {
+    background: var(--dark-blue);
+    color: var(--cream);
+    border: none;
+    cursor: pointer;
+}
+
+/* CATEGORY GRID */
+.category-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    width: 100%;
-  }
+}
 
-  .category-column{
-    background: var(--light-blue) !important;
-    border-radius: 8px;
+.category-column {
+    background: var(--light-blue);
     padding: 14px;
-    color: var(--dark-blue);
-    min-height: 130px;
-  }
-  .category-column h2{ text-align: center; margin-bottom: 10px; }
+    border-radius: 8px;
+}
 
-  .item-placeholder {
+.category-column h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* EMPTY / FILLED BOXES */
+.item-placeholder {
     background: var(--cream);
     height: 55px;
     margin-bottom: 12px;
@@ -84,82 +108,18 @@
     flex-direction: column;
     justify-content: center;
     padding: 5px;
+    text-align: center;
     font-size: 14px;
 }
-  .item-placeholder.filled {
-    background-color: var(--cream) !important;
-    border-style: solid; /* makes it look "completed" if you want */
+
+.item-placeholder.filled {
+    opacity: 1;
+    background: var(--cream);
 }
 
-
-
-  /* RIGHT area: narrow column */
-  .right {
-    width: 320px;
-    min-width: 240px;
-    flex: 0 0 320px;
-  }
-
-  .form-box{
-    background: var(--light-blue);
-    padding: 16px;
-    border-radius: 8px;
-  }
-  .form-box h3{ text-align:center; margin-bottom:12px; }
-
-  /* Inputs styled to stay inside the blue box */
-  .form-box input,
-  .form-box select,
-  .form-box button{
-    width: 100%;
-    display: block;
-    box-sizing: border-box;
-    border-radius: 6px;
-  }
-
-  .form-box input,
-  .form-box select{
-    padding: 10px;
-    margin-bottom: 12px;
-    border: 1px solid #cfcfcf;
-    background: var(--cream);
-  }
-
-  .form-box button{
-    padding: 12px;
-    border: none;
-    background: var(--dark-blue);
-    color: var(--cream);
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  .budget-box{
-    background: var(--light-blue);
-    padding: 16px;
-    border-radius: 8px;
-    margin-top: 8px;
-    text-align: center;
-  }
-  .budget-box .amount{ font-size: 28px; font-weight:700; margin-top:8px; }
-
-  /* Responsive: stack on small screens */
-  @media (max-width: 900px){
-    .main{ flex-direction: column; align-items: stretch; }
-    .right{ width: 100%; min-width: auto; flex: none; }
-    .category-grid{ grid-template-columns: 1fr; }
-  }
-
-  /* Safety: override common theme classes that push content left */
-  .container, .content, .site-content {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-  /* MODAL OVERLAY */
+/* MODAL BACKDROP */
 .modal {
-    display: none; 
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -177,21 +137,20 @@
     padding: 20px;
     border-radius: 8px;
     width: 300px;
-    box-sizing: border-box;
 }
 
 .modal-content h3 {
-    margin-top: 0;
     text-align: center;
+    margin-bottom: 12px;
 }
 
 .modal-content input {
     width: 100%;
     padding: 10px;
     margin-bottom: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: white;
+    background: var(--cream);
+    border-radius: 6px;
+    border: 1px solid #bbb;
 }
 
 .modal-content button {
@@ -204,41 +163,48 @@
     cursor: pointer;
 }
 
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
 </head>
 <body>
-  <div class="site-wrapper">
+
+<div class="site-wrapper">
+
     <header>
-      <!-- Make sure the filename matches your repo (newlogo.png or logo.png) -->
-      <img src="newlogo.png" alt="Rock Ministry Logo" />
+        <img src="newlogo.png" alt="Rock Ministry Logo">
     </header>
-    
-    <div class="form-box" style="margin-bottom: 20px;">
-      <h3>Create a Meal</h3>
 
-      <label>Number of Entrees</label>
-      <input id="entreeCount" type="number" min="0" value="0">
+    <!-- MEAL CREATION FORM -->
+    <div class="form-box">
+        <h3>Create a Meal</h3>
 
-      <label>Number of Sides</label>
-      <input id="sideCount" type="number" min="0" value="0">
+        <label>Number of Entrees</label>
+        <input id="entreeCount" type="number" min="0" value="0">
 
-      <label>Number of Drinks</label>
-      <input id="drinkCount" type="number" min="0" value="0">
+        <label>Number of Sides</label>
+        <input id="sideCount" type="number" min="0" value="0">
 
-      <label>Number of Desserts</label>
-      <input id="dessertCount" type="number" min="0" value="0">
+        <label>Number of Drinks</label>
+        <input id="drinkCount" type="number" min="0" value="0">
 
-      <button onclick="createMeal()">Create Meal</button>
+        <label>Number of Desserts</label>
+        <input id="dessertCount" type="number" min="0" value="0">
+
+        <button onclick="createMeal()">Create Meal</button>
     </div>
 
+    <!-- CATEGORY GRID -->
+    <div id="categoryGrid" class="category-grid"></div>
 
-    <div class="main">
-      <!-- LEFT: category grid -->
-      <div class="left">
-        <div id="categoryGrid" class="category-grid"></div>
-      </div>
+</div>
 
-  <!-- MODAL -->
+
+<!-- MODAL -->
 <div id="pledgeModal" class="modal">
     <div class="modal-content">
         <h3>Pledge Item</h3>
@@ -249,10 +215,10 @@
 </div>
 
 
-  <script>
-    let selectedBox = null;
+<script>
+let selectedBox = null;
 
-// OPEN MODAL WHEN CLICKING A BOX
+/* OPEN MODAL WHEN CLICKING EMPTY BOX */
 document.addEventListener("click", function(e) {
     if (e.target.classList.contains("item-placeholder")) {
         selectedBox = e.target;
@@ -263,69 +229,56 @@ document.addEventListener("click", function(e) {
     }
 });
 
-// SUBMIT PLEDGE
+/* SUBMIT PLEDGE */
 function submitPledge() {
     const item = document.getElementById("modalItem").value.trim();
     const member = document.getElementById("modalMember").value.trim();
-
     if (!item || !member) return;
 
     selectedBox.innerHTML = `${item}<br><span style="font-size:12px; opacity:0.8;">— ${member}</span>`;
-    selectedBox.style.opacity = "1";
-    selectedBox.style.background = "white";
+    selectedBox.classList.add("filled");
 
     document.getElementById("pledgeModal").style.display = "none";
 }
 
-// BUTTON CLICK
+/* BUTTON & ENTER KEY */
 document.getElementById("modalSubmit").addEventListener("click", submitPledge);
-
-// ENTER KEY SUBMISSION
-document.addEventListener("keydown", function(e) {
+document.addEventListener("keydown", e => {
     if (e.key === "Enter" && document.getElementById("pledgeModal").style.display === "flex") {
         submitPledge();
     }
 });
 
-// CLOSE MODAL BY CLICKING OUTSIDE
+/* CLOSE MODAL BY CLICKING OUTSIDE */
 document.getElementById("pledgeModal").addEventListener("click", function(e) {
-    if (e.target === this) {
-        this.style.display = "none";
-    }
+    if (e.target === this) this.style.display = "none";
 });
-    
-function createMeal() {
-    const entreeCount = parseInt(document.getElementById("entreeCount").value) || 0;
-    const sideCount = parseInt(document.getElementById("sideCount").value) || 0;
-    const drinkCount = parseInt(document.getElementById("drinkCount").value) || 0;
-    const dessertCount = parseInt(document.getElementById("dessertCount").value) || 0;
 
-    const categories = [
-        { name: "Entree", count: entreeCount },
-        { name: "Sides", count: sideCount },
-        { name: "Drinks", count: drinkCount },
-        { name: "Desserts", count: dessertCount }
-    ];
+/* BUILD MEAL GRID */
+function createMeal() {
+    const counts = {
+        Entree: +document.getElementById("entreeCount").value || 0,
+        Sides: +document.getElementById("sideCount").value || 0,
+        Drinks: +document.getElementById("drinkCount").value || 0,
+        Desserts: +document.getElementById("dessertCount").value || 0
+    };
 
     const grid = document.getElementById("categoryGrid");
-    grid.innerHTML = ""; // Clear existing items
+    grid.innerHTML = "";
 
-    categories.forEach(cat => {
-        if (cat.count > 0) {
-            // Create the column container
+    Object.entries(counts).forEach(([name, count]) => {
+        if (count > 0) {
             const col = document.createElement("div");
-            col.classList.add("category-column");
+            col.className = "category-column";
 
-            // Add category title
             const title = document.createElement("h2");
-            title.textContent = cat.name;
+            title.textContent = name;
             col.appendChild(title);
 
-            // Add placeholder boxes
-            for (let i = 0; i < cat.count; i++) {
-                const item = document.createElement("div");
-                item.classList.add("item-placeholder");
-                col.appendChild(item);
+            for (let i = 0; i < count; i++) {
+                const box = document.createElement("div");
+                box.className = "item-placeholder";
+                col.appendChild(box);
             }
 
             grid.appendChild(col);
@@ -334,7 +287,5 @@ function createMeal() {
 }
 </script>
 
-
-<!-- End body -->
 </body>
 </html>
