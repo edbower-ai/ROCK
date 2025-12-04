@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Rock Ministry Tracker - Centered</title>
+<title>Rock Ministry Tracker</title>
 
 <style>
   /* Simple reset to reduce interference */
@@ -153,11 +153,30 @@
       <!-- Make sure the filename matches your repo (newlogo.png or logo.png) -->
       <img src="newlogo.png" alt="Rock Ministry Logo" />
     </header>
+    
+    <div class="form-box" style="margin-bottom: 20px;">
+      <h3>Create a Meal</h3>
+
+      <label>Number of Entrees</label>
+      <input id="entreeCount" type="number" min="0" value="0">
+
+      <label>Number of Sides</label>
+      <input id="sideCount" type="number" min="0" value="0">
+
+      <label>Number of Drinks</label>
+      <input id="drinkCount" type="number" min="0" value="0">
+
+      <label>Number of Desserts</label>
+      <input id="dessertCount" type="number" min="0" value="0">
+
+      <button onclick="createMeal()">Create Meal</button>
+    </div>
+
 
     <div class="main">
       <!-- LEFT: category grid -->
       <div class="left">
-        <div class="category-grid">
+        <div id="categoryGrid" class="category-grid"></div>
           <div class="category-column">
             <h2>Entree</h2>
             <div class="item-placeholder"></div>
@@ -209,6 +228,48 @@
       </aside>
     </div>
   </div>
+
+  <script>
+function createMeal() {
+    const entreeCount = parseInt(document.getElementById("entreeCount").value) || 0;
+    const sideCount = parseInt(document.getElementById("sideCount").value) || 0;
+    const drinkCount = parseInt(document.getElementById("drinkCount").value) || 0;
+    const dessertCount = parseInt(document.getElementById("dessertCount").value) || 0;
+
+    const categories = [
+        { name: "Entree", count: entreeCount },
+        { name: "Sides", count: sideCount },
+        { name: "Drinks", count: drinkCount },
+        { name: "Desserts", count: dessertCount }
+    ];
+
+    const grid = document.getElementById("categoryGrid");
+    grid.innerHTML = ""; // Clear existing items
+
+    categories.forEach(cat => {
+        if (cat.count > 0) {
+            // Create the column container
+            const col = document.createElement("div");
+            col.classList.add("category-column");
+
+            // Add category title
+            const title = document.createElement("h2");
+            title.textContent = cat.name;
+            col.appendChild(title);
+
+            // Add placeholder boxes
+            for (let i = 0; i < cat.count; i++) {
+                const item = document.createElement("div");
+                item.classList.add("item-placeholder");
+                col.appendChild(item);
+            }
+
+            grid.appendChild(col);
+        }
+    });
+}
+</script>
+
 
 <!-- End body -->
 </body>
