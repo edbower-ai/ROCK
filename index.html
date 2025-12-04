@@ -6,9 +6,8 @@
     <title>Rock Ministry Tracker</title>
 
     <style>
-        /* --- COLOR SCHEME --- */
         :root {
-            --cream: #EFE8D9;
+            --cream: #F2E8D5;
             --light-blue: #7FB1C8;
             --dark-blue: #1A3648;
         }
@@ -18,41 +17,46 @@
             font-family: Arial, sans-serif;
             background: var(--cream);
             color: var(--dark-blue);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
+        /* HEADER */
         header {
-            background: var(--cream);
-            padding: 20px 0;
+            padding: 25px 0 10px 0;
             text-align: center;
         }
 
         header img {
-            width: 160px;
-            height: auto;
+            width: 170px;
         }
 
+        /* MAIN LAYOUT */
         .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
             display: flex;
+            justify-content: center;
+            gap: 25px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* LEFT GRID OF CATEGORIES */
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
+            flex: 1;
         }
 
         .category-column {
-            flex: 1;
             background: var(--light-blue);
             padding: 15px;
-            border-radius: 6px;
+            border-radius: 8px;
         }
-        
-        .category-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr; 
-            grid-template-rows: auto auto; 
-            gap: 20px; 
-        }
-    
+
         .category-column h2 {
             margin-top: 0;
             text-align: center;
@@ -60,14 +64,15 @@
 
         .item-placeholder {
             background: var(--cream);
-            height: 60px;
+            height: 55px;
             margin-bottom: 12px;
             border-radius: 4px;
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
+        /* RIGHT PANEL */
         .right-panel {
-            width: 300px;
+            width: 320px;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -75,40 +80,32 @@
 
         .form-box {
             background: var(--light-blue);
-            padding: 15px;
-            border-radius: 6px;
+            padding: 18px;
+            border-radius: 8px;
         }
 
         .form-box h3 {
             margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
         }
 
         .form-box input {
             width: 100%;
             padding: 10px;
-            margin: 0 0 12px 0;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
             background: var(--cream);
-            border: 1px solid #d3d3d3;
             border-radius: 4px;
             box-sizing: border-box;
         }
-        
-        .form-box select {
-            width: 100%;
-            padding: 10px;
-            margin: 0 0 12px 0;
-            background: var(--cream);
-            border: 1px solid #d3d3d3;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }    
 
         .form-box button {
             width: 100%;
             padding: 12px;
-            border: none;
             background: var(--dark-blue);
             color: var(--cream);
+            border: none;
             border-radius: 4px;
             font-size: 16px;
             cursor: pointer;
@@ -117,7 +114,7 @@
         .budget-box {
             background: var(--light-blue);
             padding: 20px;
-            border-radius: 6px;
+            border-radius: 8px;
             text-align: center;
         }
 
@@ -131,6 +128,12 @@
         @media (max-width: 900px) {
             .container {
                 flex-direction: column;
+                align-items: center;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+                width: 100%;
             }
 
             .right-panel {
@@ -144,13 +147,15 @@
 
     <!-- HEADER WITH LOGO -->
     <header>
-        <img src="newlogo.png" alt="Rock Ministry Logo" />
+        <img src="newlogo.png" alt="Rock Ministry Logo">
     </header>
 
     <!-- MAIN LAYOUT -->
     <div class="container">
 
+        <!-- 2x2 GRID -->
         <div class="category-grid">
+
             <div class="category-column">
                 <h2>Entree</h2>
                 <div class="item-placeholder"></div>
@@ -174,30 +179,20 @@
                 <h2>Desserts</h2>
                 <div class="item-placeholder"></div>
                 <div class="item-placeholder"></div>
-                <div class="item-placeholder"></div>
             </div>
+
         </div>
 
-        <!-- Right Panel -->
+        <!-- RIGHT PANEL -->
         <div class="right-panel">
 
-            <!-- Pledge Form -->
             <div class="form-box">
                 <h3>Pledge an Item</h3>
-                <select class="category-select">
-                     <option value="">Select Category</option>
-                     <option>Entree</option>
-                     <option>Sides</option>
-                     <option>Drinks</option>
-                     <option>Desserts</option>
-                </select>
-                
-                <input type="text" placeholder="Item name" />
-                <input type="text" placeholder="Member name" />
+                <input type="text" placeholder="Item name">
+                <input type="text" placeholder="Member name">
                 <button>Pledge Item</button>
             </div>
 
-            <!-- Budget Box -->
             <div class="budget-box">
                 <div>Remaining Budget:</div>
                 <div class="amount">$600.00</div>
@@ -209,4 +204,3 @@
 
 </body>
 </html>
-
