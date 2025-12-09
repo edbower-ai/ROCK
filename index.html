@@ -22,17 +22,25 @@ body {
     background: var(--cream);
     color: var(--dark-blue);
     font-family: Arial, sans-serif;
+
     display: flex;
-    justify-content: center;
-    padding: 30px;
+    flex-direction: column;   /* stack logo and content */
+    align-items: center;      /* keeps ONLY the logo centered */
+
     min-height: 100vh;
+    padding: 30px;
 }
+
 
 .site-wrapper {
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-between;   /* left + right */
+    align-items: flex-start;
 }
+
 
 /* HEADER */
 header {
@@ -169,19 +177,17 @@ header img {
         grid-template-columns: 1fr;
     }
 }
-    /* Layout: content left, open space right */
-.main-content {
-    display: flex;
-    flex-direction: column;
-    width: 55%;           /* left column width */
-    align-items: flex-start;
+.left-column {
+    width: 55%;
 }
 
-/* Center only the logo */
-header {
-    text-align: center;
+.right-column {
+    width: 40%;
+    min-height: 300px;
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
 }
-
 </style>
 </head>
 <body>
@@ -192,14 +198,17 @@ header {
         <img src="newlogo.png" alt="Rock Ministry Logo">
     </header>
 
-    <div class="main-content">
-    <!-- MEAL CREATION FORM -->
-    <div class="form-box"> … </div>
+    <div class="left-column">
+        <!-- MEAL CREATION FORM -->
+        <div class="form-box">…</div>
 
-    <!-- CATEGORY GRID -->
-    <div id="categoryGrid" class="category-grid"></div>
+        <!-- CATEGORY GRID -->
+        <div id="categoryGrid" class="category-grid"></div>
     </div>
 
+    <div class="right-column" id="budgetPanel">
+        <!-- EMPTY NOW — for your budget tools -->
+    </div>
 
     <!-- MEAL CREATION FORM -->
     <div class="form-box">
