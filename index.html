@@ -22,25 +22,17 @@ body {
     background: var(--cream);
     color: var(--dark-blue);
     font-family: Arial, sans-serif;
-
     display: flex;
-    flex-direction: column;   /* stack logo and content */
-    align-items: center;      /* keeps ONLY the logo centered */
-
-    min-height: 100vh;
+    justify-content: center;
     padding: 30px;
+    min-height: 100vh;
 }
-
 
 .site-wrapper {
     width: 100%;
     max-width: 1200px;
-
-    display: flex;
-    justify-content: space-between;   /* left + right */
-    align-items: flex-start;
+    margin: 0 auto;
 }
-
 
 /* HEADER */
 header {
@@ -177,17 +169,6 @@ header img {
         grid-template-columns: 1fr;
     }
 }
-.left-column {
-    width: 55%;
-}
-
-.right-column {
-    width: 40%;
-    min-height: 300px;
-    background: white;
-    border-radius: 8px;
-    padding: 16px;
-}
 </style>
 </head>
 <body>
@@ -197,18 +178,6 @@ header img {
     <header>
         <img src="newlogo.png" alt="Rock Ministry Logo">
     </header>
-
-    <div class="left-column">
-        <!-- MEAL CREATION FORM -->
-        <div class="form-box">…</div>
-
-        <!-- CATEGORY GRID -->
-        <div id="categoryGrid" class="category-grid"></div>
-    </div>
-
-    <div class="right-column" id="budgetPanel">
-        <!-- EMPTY NOW — for your budget tools -->
-    </div>
 
     <!-- MEAL CREATION FORM -->
     <div class="form-box">
