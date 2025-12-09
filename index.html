@@ -169,6 +169,19 @@ header img {
         grid-template-columns: 1fr;
     }
 }
+    /* Layout: content left, open space right */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    width: 55%;           /* left column width */
+    align-items: flex-start;
+}
+
+/* Center only the logo */
+header {
+    text-align: center;
+}
+
 </style>
 </head>
 <body>
@@ -178,6 +191,15 @@ header img {
     <header>
         <img src="newlogo.png" alt="Rock Ministry Logo">
     </header>
+
+    <div class="main-content">
+    <!-- MEAL CREATION FORM -->
+    <div class="form-box"> … </div>
+
+    <!-- CATEGORY GRID -->
+    <div id="categoryGrid" class="category-grid"></div>
+    </div>
+
 
     <!-- MEAL CREATION FORM -->
     <div class="form-box">
