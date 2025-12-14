@@ -8,7 +8,6 @@
 <style>
 /* RESET */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
 
 /* COLOR SCHEME */
 :root {
@@ -17,33 +16,42 @@ html, body { height: 100%; }
     --dark-blue: #1A3648;
 }
 
-/* PAGE LAYOUT */
 body {
     background: var(--cream);
-    color: var(--dark-blue);
     font-family: Arial, sans-serif;
+    color: var(--dark-blue);
     display: flex;
     justify-content: center;
     padding: 30px;
-    min-height: 100vh;
 }
 
 .site-wrapper {
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
 }
 
-/* HEADER */
 header {
     text-align: center;
     margin-bottom: 20px;
 }
+
 header img {
     width: 170px;
 }
 
-/* MEAL CREATION BOX */
+/* MAIN LAYOUT */
+.main-layout {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+}
+
+/* LEFT PANEL */
+.left-panel {
+    flex: 1;
+}
+
+/* MEAL CREATION */
 .form-box {
     background: var(--light-blue);
     padding: 16px;
@@ -96,42 +104,79 @@ header img {
     margin-bottom: 10px;
 }
 
-/* EMPTY / FILLED BOXES */
 .item-placeholder {
     background: var(--cream);
     height: 55px;
     margin-bottom: 12px;
     border-radius: 4px;
-    opacity: 0.9;
     cursor: pointer;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    padding: 5px;
     text-align: center;
-    font-size: 14px;
 }
 
 .item-placeholder.filled {
-    opacity: 1;
+    font-weight: bold;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+    width: 300px;
+}
+
+.budget-box {
+    background: var(--light-blue);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.budget-amount {
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.purchase-box {
+    background: var(--light-blue);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.purchase-box h3 {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.purchase-box input,
+.purchase-box button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #cfcfcf;
     background: var(--cream);
 }
 
-/* MODAL BACKDROP */
+.purchase-box button {
+    background: var(--dark-blue);
+    color: var(--cream);
+    border: none;
+    cursor: pointer;
+}
+
+/* MODAL */
 .modal {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0,0,0,0.4);
     justify-content: center;
     align-items: center;
-    z-index: 999;
 }
 
-/* MODAL BOX */
 .modal-content {
     background: var(--cream);
     padding: 20px;
@@ -139,18 +184,10 @@ header img {
     width: 300px;
 }
 
-.modal-content h3 {
-    text-align: center;
-    margin-bottom: 12px;
-}
-
 .modal-content input {
     width: 100%;
     padding: 10px;
     margin-bottom: 12px;
-    background: var(--cream);
-    border-radius: 6px;
-    border: 1px solid #bbb;
 }
 
 .modal-content button {
@@ -159,133 +196,133 @@ header img {
     background: var(--dark-blue);
     color: var(--cream);
     border: none;
-    border-radius: 6px;
     cursor: pointer;
 }
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
+    .main-layout {
+        flex-direction: column;
+    }
+
+    .right-panel {
+        width: 100%;
+    }
+
     .category-grid {
         grid-template-columns: 1fr;
     }
 }
 </style>
 </head>
-<body>
 
+<body>
 <div class="site-wrapper">
 
-    <header>
-        <img src="newlogo.png" alt="Rock Ministry Logo">
-    </header>
+<header>
+    <img src="newlogo.png" alt="Rock Ministry Logo">
+</header>
 
-    <!-- MEAL CREATION FORM -->
-    <div class="form-box">
-        <h3>Create a Meal</h3>
+<div class="main-layout">
 
-        <label>Number of Entrees</label>
-        <input id="entreeCount" type="number" min="0" value="0">
+    <!-- LEFT -->
+    <div class="left-panel">
 
-        <label>Number of Sides</label>
-        <input id="sideCount" type="number" min="0" value="0">
+        <div class="form-box">
+            <h3>Create a Meal</h3>
+            <label>Entrees</label><input id="entreeCount" type="number" min="0" value="0">
+            <label>Sides</label><input id="sideCount" type="number" min="0" value="0">
+            <label>Drinks</label><input id="drinkCount" type="number" min="0" value="0">
+            <label>Desserts</label><input id="dessertCount" type="number" min="0" value="0">
+            <button onclick="createMeal()">Create Meal</button>
+        </div>
 
-        <label>Number of Drinks</label>
-        <input id="drinkCount" type="number" min="0" value="0">
-
-        <label>Number of Desserts</label>
-        <input id="dessertCount" type="number" min="0" value="0">
-
-        <button onclick="createMeal()">Create Meal</button>
+        <div id="categoryGrid" class="category-grid"></div>
     </div>
 
-    <!-- CATEGORY GRID -->
-    <div id="categoryGrid" class="category-grid"></div>
+    <!-- RIGHT -->
+    <div class="right-panel">
+        <div class="budget-box">
+            <div>Remaining Budget</div>
+            <div id="budgetAmount" class="budget-amount">$600.00</div>
+        </div>
 
-</div>
-
-
-<!-- MODAL -->
-<div id="pledgeModal" class="modal">
-    <div class="modal-content">
-        <h3>Pledge Item</h3>
-        <input type="text" id="modalItem" placeholder="Item name">
-        <input type="text" id="modalMember" placeholder="Member name">
-        <button id="modalSubmit">Pledge</button>
+        <div class="purchase-box">
+            <h3>Add Purchase</h3>
+            <input id="purchaseItem" placeholder="Item">
+            <input id="purchasePrice" type="number" placeholder="Price">
+            <input id="purchaseName" placeholder="Name">
+            <button onclick="addPurchase()">Add Purchase</button>
+        </div>
     </div>
-</div>
 
+</div>
+</div>
 
 <script>
+let budget = 600;
 let selectedBox = null;
 
-/* OPEN MODAL WHEN CLICKING EMPTY BOX */
-document.addEventListener("click", function(e) {
-    if (e.target.classList.contains("item-placeholder")) {
-        selectedBox = e.target;
-        document.getElementById("modalItem").value = "";
-        document.getElementById("modalMember").value = "";
-        document.getElementById("pledgeModal").style.display = "flex";
-        document.getElementById("modalItem").focus();
-    }
-});
-
-/* SUBMIT PLEDGE */
-function submitPledge() {
-    const item = document.getElementById("modalItem").value.trim();
-    const member = document.getElementById("modalMember").value.trim();
-    if (!item || !member) return;
-
-    selectedBox.innerHTML = `${item}<br><span style="font-size:12px; opacity:0.8;">— ${member}</span>`;
-    selectedBox.classList.add("filled");
-
-    document.getElementById("pledgeModal").style.display = "none";
+function updateBudget() {
+    document.getElementById("budgetAmount").textContent = `$${budget.toFixed(2)}`;
 }
 
-/* BUTTON & ENTER KEY */
-document.getElementById("modalSubmit").addEventListener("click", submitPledge);
-document.addEventListener("keydown", e => {
-    if (e.key === "Enter" && document.getElementById("pledgeModal").style.display === "flex") {
-        submitPledge();
-    }
-});
+function addPurchase() {
+    const price = parseFloat(document.getElementById("purchasePrice").value);
+    if (!price || price <= 0) return;
+    budget -= price;
+    updateBudget();
+}
 
-/* CLOSE MODAL BY CLICKING OUTSIDE */
-document.getElementById("pledgeModal").addEventListener("click", function(e) {
-    if (e.target === this) this.style.display = "none";
-});
-
-/* BUILD MEAL GRID */
 function createMeal() {
     const counts = {
-        Entree: +document.getElementById("entreeCount").value || 0,
-        Sides: +document.getElementById("sideCount").value || 0,
-        Drinks: +document.getElementById("drinkCount").value || 0,
-        Desserts: +document.getElementById("dessertCount").value || 0
+        Entree: +entreeCount.value || 0,
+        Sides: +sideCount.value || 0,
+        Drinks: +drinkCount.value || 0,
+        Desserts: +dessertCount.value || 0
     };
 
-    const grid = document.getElementById("categoryGrid");
-    grid.innerHTML = "";
+    categoryGrid.innerHTML = "";
 
     Object.entries(counts).forEach(([name, count]) => {
         if (count > 0) {
             const col = document.createElement("div");
             col.className = "category-column";
-
-            const title = document.createElement("h2");
-            title.textContent = name;
-            col.appendChild(title);
-
+            col.innerHTML = `<h2>${name}</h2>`;
             for (let i = 0; i < count; i++) {
                 const box = document.createElement("div");
                 box.className = "item-placeholder";
+                box.onclick = () => openModal(box);
                 col.appendChild(box);
             }
-
-            grid.appendChild(col);
+            categoryGrid.appendChild(col);
         }
     });
 }
+
+function openModal(box) {
+    selectedBox = box;
+    pledgeModal.style.display = "flex";
+}
+
+function submitPledge() {
+    const item = modalItem.value.trim();
+    const member = modalMember.value.trim();
+    if (!item || !member) return;
+    selectedBox.innerHTML = `${item}<br><small>— ${member}</small>`;
+    selectedBox.classList.add("filled");
+    pledgeModal.style.display = "none";
+}
 </script>
+
+<!-- MODAL -->
+<div id="pledgeModal" class="modal">
+    <div class="modal-content">
+        <input id="modalItem" placeholder="Item name">
+        <input id="modalMember" placeholder="Member name">
+        <button onclick="submitPledge()">Pledge</button>
+    </div>
+</div>
 
 </body>
 </html>
