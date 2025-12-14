@@ -124,6 +124,24 @@ header img {
 .right-panel {
     width: 300px;
 }
+    
+#purchaseHistory {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.purchase-entry {
+    background: var(--cream);
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.purchase-entry span {
+    display: block;
+    opacity: 0.85;
+    font-size: 12px;
+}
 
 .budget-box {
     background: var(--light-blue);
@@ -253,6 +271,7 @@ header img {
             <input id="purchasePrice" type="number" placeholder="Price">
             <input id="purchaseName" placeholder="Name">
             <button onclick="addPurchase()">Add Purchase</button>
+            <div id="purchaseHistory"></div>
         </div>
     </div>
 
@@ -268,11 +287,38 @@ function updateBudget() {
 }
 
 function addPurchase() {
-    const price = parseFloat(document.getElementById("purchasePrice").value);
-    if (!price || price <= 0) return;
+    const itemInput = document.getElementById("purchaseItem");
+    const priceInput = document.getElementById("purchasePrice");
+    const nameInput = document.getElementById("purchaseName");
+
+    const item = itemInput.value.trim();
+    const price = parseFloat(priceInput.value);
+    const name = nameInput.value.trim();
+
+    if (!item || !price || price <= 0 || !name) return;
+
+    // Deduct budget
     budget -= price;
     updateBudget();
+
+    // Add to history
+    const history = document.getElementById("purchaseHistory");
+    const entry = document.createElement("div");
+    entry.className = "purchase-entry";
+    entry.innerHTML = `
+        <strong>${item}</strong> - $${price.toFixed(2)}
+        <span>Purchased by: ${name}</span>
+    `;
+    history.prepend(entry); // newest on top
+
+    // Clear inputs
+    itemInput.value = "";
+    priceInput.value = "";
+    nameInput.value = "";
+
+    itemInput.focus();
 }
+
 
 function createMeal() {
     const counts = {
