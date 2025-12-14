@@ -119,6 +119,20 @@ header img {
 .item-placeholder.filled {
     font-weight: bold;
 }
+.item-placeholder {
+    position: relative;
+}
+
+.remove-x {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--dark-blue);
+    font-size: 16px;
+}
+
 
 /* RIGHT PANEL */
 .right-panel {
@@ -306,9 +320,11 @@ function addPurchase() {
     const entry = document.createElement("div");
     entry.className = "purchase-entry";
     entry.innerHTML = `
-        <strong>${item}</strong> - $${price.toFixed(2)}
-        <span>Purchased by: ${name}</span>
-    `;
+    <span class="remove-x" onclick="removePurchase(event, ${price})">×</span>
+    <strong>${item}</strong> - $${price.toFixed(2)}
+    <span>Purchased by: ${name}</span>
+`;
+
     history.prepend(entry); // newest on top
 
     // Clear inputs
@@ -318,6 +334,15 @@ function addPurchase() {
 
     itemInput.focus();
 }
+function removePurchase(event, price) {
+    const entry = event.target.closest(".purchase-entry");
+    entry.remove();
+
+    // Refund the budget
+    budget += price;
+    updateBudget();
+}
+
 
 
 function createMeal() {
@@ -355,10 +380,21 @@ function submitPledge() {
     const item = modalItem.value.trim();
     const member = modalMember.value.trim();
     if (!item || !member) return;
-    selectedBox.innerHTML = `${item}<br><small>— ${member}</small>`;
+    selectedBox.innerHTML = `
+    <span class="remove-x" onclick="removePledge(event)">×</span>
+    <strong>${item}</strong>
+    <div class="pledge-member">— ${member}</div>
+`;
     selectedBox.classList.add("filled");
     pledgeModal.style.display = "none";
 }
+    function removePledge(event) {
+    event.stopPropagation(); // prevents modal from reopening
+    const box = event.target.closest(".item-placeholder");
+    box.innerHTML = "";
+    box.classList.remove("filled");
+}
+
 </script>
 
 <!-- MODAL -->
