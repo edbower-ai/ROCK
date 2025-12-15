@@ -6,7 +6,6 @@
 <title>Rock Ministry Tracker</title>
 
 <style>
-/* RESET */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 /* COLOR SCHEME */
@@ -232,7 +231,6 @@ header img {
     cursor: pointer;
 }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
     .main-layout {
         flex-direction: column;
@@ -326,7 +324,7 @@ function addPurchase() {
     <span>Purchased by: ${name}</span>
 `;
 
-    history.prepend(entry); // newest on top
+    history.prepend(entry);
 
     // Clear inputs
     itemInput.value = "";
@@ -390,7 +388,7 @@ function submitPledge() {
     pledgeModal.style.display = "none";
 }
     function removePledge(event) {
-    event.stopPropagation(); // prevents modal from reopening
+    event.stopPropagation(); 
     const box = event.target.closest(".item-placeholder");
     box.innerHTML = "";
     box.classList.remove("filled");
@@ -398,7 +396,7 @@ function submitPledge() {
 
 </script>
 
-<!-- MODAL -->
+
 <div id="pledgeModal" class="modal">
     <div class="modal-content">
         <input id="modalItem" placeholder="Item name">
